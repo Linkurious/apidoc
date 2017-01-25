@@ -10,28 +10,41 @@
   <link href="css/style.css" rel="stylesheet" media="screen, print">
   <link href="img/favicon.ico" rel="icon" type="image/x-icon">
   <script src="vendor/polyfill.js"></script>
+  <script lang="javascript">
+    window.onload = function() {
+      // scroll "current" menu item into visible pane
+      var offset = document.getElementsByClassName('current')[0].offsetTop;
+      document.getElementsByClassName('menu')[0].scrollTop = offset - 15;
+    }
+  </script>
 </head>
 <body>
 
 <script id="template-sidenav" type="text/x-handlebars-template">
-<nav id="scrollingNav">
-  <ul class="sidenav nav nav-list">
-  {{#each nav}}
-    {{#if title}}
-      {{#if isHeader}}
-        {{#if isFixed}}
-          <li class="nav-fixed nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+<nav id="scrollingNav" class="menu">
+  <div class="info box-decorator">
+      Welcome to the REST API documentation of Linkurious v{{package.version}}.
+      Click on the menu above to access other documentations.
+  </div>
+  <div>
+    <ul>
+    {{#each nav}}
+      {{#if title}}
+        {{#if isHeader}}
+          {{#if isFixed}}
+            <li class="nav-fixed nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+          {{else}}
+            <li class="nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+          {{/if}}
         {{else}}
-          <li class="nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+          <li {{#if hidden}}class="hide" {{/if}}data-group="{{group}}" data-name="{{name}}" data-version="{{version}}">
+            <a href="#api-{{group}}-{{name}}">{{title}}</a>
+          </li>
         {{/if}}
-      {{else}}
-        <li {{#if hidden}}class="hide" {{/if}}data-group="{{group}}" data-name="{{name}}" data-version="{{version}}">
-          <a href="#api-{{group}}-{{name}}">{{title}}</a>
-        </li>
       {{/if}}
-    {{/if}}
-  {{/each}}
-  </ul>
+    {{/each}}
+    </ul>
+  </div>
 </nav>
 </script>
 
@@ -76,9 +89,7 @@
 
 <script id="template-article" type="text/x-handlebars-template">
   <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
-    <div class="pull-left">
-      <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
-    </div>
+    <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
     {{#if template.withCompare}}
     <div class="pull-right">
       <div class="btn-group">
@@ -604,16 +615,41 @@
   </tbody>
 </script>
 
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div id="sidenav" class="span2"></div>
-    <div id="content">
-      <div id="project"></div>
-      <div id="header"></div>
-      <div id="sections"></div>
-      <div id="footer"></div>
-      <div id="generator"></div>
+<header>
+    <div class="logo">
+        REST API documentation of <img src="img/logo-linkurious.png" alt="Linkurious" height="12">
     </div>
+
+    <nav class="content-menu">
+        <!-- <h1>TODO current</h1> -->
+
+        <div class="switch dropdown">
+          <button class="dropbtn">
+              <div class="burger-container">
+                  <div class="burger-bar1"></div>
+                  <div class="burger-bar2"></div>
+                  <div class="burger-bar3"></div>
+            </div>
+          </button>
+          <div class="dropdown-content">
+            <a href="#" class="separator">Other versions of this document</a>
+            <a href="#">User manual</a>
+            <a href="#">Administrator manual</a>
+            <a href="#" class="separator">Visualization SDK (Ogma) documentation</a>
+            <a href="https://linkurio.us">Linkurious website</a>
+          </div>
+        </div>
+    </nav>
+</header>
+
+<div class="main">
+  <div id="sidenav" class="menu"></div>
+  <div class="content box-decorator">
+    <div id="project"></div>
+    <div id="header"></div>
+    <div id="sections"></div>
+    <div id="footer"></div>
+    <div id="generator"></div>
   </div>
 </div>
 
