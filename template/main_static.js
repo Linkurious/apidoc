@@ -2,11 +2,16 @@
 $(this).scrollspy({ target: '#scrollingNav', offset: 18 });
 
 // Content-Scroll on Navigation click
-$('.sidenav').find('a').on('click', function(e) {
+$('#sidenav').find('a').on('click', function(e) {
   e.preventDefault();
   var id = $(this).attr('href');
-  if ($(id).length > 0)
-    $('html,body').animate({ scrollTop: parseInt($(id).offset().top) }, 400);
+
+  $('.menu a.current').removeClass('current');
+  $(this).addClass('current');
+
+  if ($(id).length > 0) {
+    $('html,body').animate({scrollTop: parseInt($(id).offset().top)}, 400);
+  }
   window.location.hash = $(this).attr('href');
 });
 
