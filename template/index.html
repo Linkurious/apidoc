@@ -10,12 +10,9 @@
   <link href="css/style.css" rel="stylesheet" media="screen, print">
   <link href="img/favicon.ico" rel="icon" type="image/x-icon">
   <script src="vendor/polyfill.js"></script>
+  <script src="vendor/linkurious_scripts.js"></script>
   <script lang="javascript">
-    window.onload = function() {
-      // scroll "current" menu item into visible pane
-      var offset = document.getElementsByClassName('current')[0].offsetTop;
-      document.getElementsByClassName('menu')[0].scrollTop = offset - 15;
-    }
+    window.onload = function() { initDocSite(''); }
   </script>
 </head>
 <body>
@@ -624,23 +621,32 @@
         <!-- <h1>TODO current</h1> -->
 
         <div class="switch dropdown">
-          <button class="dropbtn">
-              <div class="burger-container">
-                  <div class="burger-bar1"></div>
-                  <div class="burger-bar2"></div>
-                  <div class="burger-bar3"></div>
+            <button class="dropbtn">
+                <div class="dropdown-text">Version {{version}}</div>
+                <div class="burger-container">
+                    <div class="burger-bar1"></div>
+                    <div class="burger-bar2"></div>
+                    <div class="burger-bar3"></div>
+                </div>
+            </button>
+            <div class="dropdown-content">
+              <a href="javascript:void(0)" id="versionOpen" class="separator">Other versions of this document</a>
+              <a href="/../../user-manual/latest">User manual</a>
+              <a href="/../../admin-manual/latest">Administration manual</a>
+              <a href="/../../server-sdk/latest">Server SDK documentation</a>
+              <a href="/../../ogma/latest" class="separator">Visualization SDK (Ogma) documentation</a>
+              <a href="https://linkurio.us/">Linkurious website</a>
             </div>
-          </button>
-          <div class="dropdown-content">
-            <a href="#" class="separator">Other versions of this document</a>
-            <a href="#">User manual</a>
-            <a href="#">Administrator manual</a>
-            <a href="#" class="separator">Visualization SDK (Ogma) documentation</a>
-            <a href="https://linkurio.us">Linkurious website</a>
-          </div>
         </div>
     </nav>
 </header>
+
+<div id="popupLayer"></div>
+<div id="versionPopup">
+  <div class="head">All versions of this {{doc}}<div id="versionClose">X</div></div>
+  <div id="versionList"></div>
+</div>
+
 
 <div class="main">
   <div id="sidenav" class="menu"></div>

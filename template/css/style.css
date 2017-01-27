@@ -1,10 +1,69 @@
 /* latin */
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+/*@import url('https://fonts.googleapis.com/css?family=Lato:400,700');*/
 
 /* for the type popovers */
 .popover {
   max-width: 40%;
 }
+
+/* VERSIONS POPUP */
+
+#popupLayer {
+    z-index: 2000;
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.7;
+}
+#versionPopup {
+    z-index: 2001;
+    display: none;
+    border: 1px solid #000;
+    background-color: #fff;
+    position: fixed;
+    /* center the element */
+    top: 100px;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    /* give it dimensions */
+    height: 450px;
+    max-height: 80%;
+    width: 400px;
+    overflow-y: hidden;
+    box-shadow: 3px 3px 5px 0 #000;
+}
+#versionList {
+    height: 415px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#versionList a:hover {
+    text-decoration: underline;
+}
+#versionPopup .head {
+    padding: 5px 10px;
+    background-color: rgb(30, 29, 50);
+    height: 25px;
+    color: #fff;
+}
+#versionClose {
+    display: block;
+    float: right;
+    cursor: pointer;
+}
+#versionClose:hover {
+    background-color: #fff;
+    color: rgb(30, 29, 50);
+}
+
 
 /* ------------------------------------------------------------------------------------------
  * Content
@@ -13,7 +72,7 @@ body {
     margin: 0;
     color: #313042;
     background-color: #f2f2f2;
-    font-family: "Lato", "Helvetica Neue", Helvetica, sans-serif;
+    font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.02em;
@@ -485,6 +544,12 @@ a:hover .burger-bar1, a:hover .burger-bar2, a:hover .burger-bar3 {
     display: block;
 }
 
+div.dropdown-text {
+    float: left;
+    line-height: 55px;
+    font-size: 18px;
+    margin-right: 10px
+}
 
 /* ------------------------------------------------------------------------------------------
  * apidoc - intro
