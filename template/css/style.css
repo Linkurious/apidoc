@@ -41,9 +41,10 @@
     box-shadow: 3px 3px 5px 0 #000;
 }
 #versionList {
-    height: 415px;
+    height: 385px;
     overflow-y: auto;
     overflow-x: hidden;
+    padding: 15px 0;
 }
 #versionList a:hover {
     text-decoration: underline;
@@ -388,6 +389,7 @@ td > p {
 
 header {
     position: fixed;
+    left: 0;
     top: 0;
     height: 56px;
     width: 100%;
@@ -425,7 +427,12 @@ header h1 {
 }
 
 .logo > img {
-  height: 12px;
+    height: 12px;
+    display: inline;
+    box-shadow: none;
+    border: none;
+    max-width: none;
+    vertical-align: middle;
 }
 
 .switch {
@@ -435,7 +442,8 @@ header h1 {
 }
 
 .switch:hover {
-    background-color: #141229;
+    /*background-color: #141229;*/
+    background-color: #42445a;
 }
 
 header > nav.switch-menu {
@@ -470,6 +478,12 @@ header > nav > ul > li > a:hover {
 
 
 /* BURGER ICON */
+
+.burger-container {
+    display: block;
+    float: right;
+    margin-top: 9px;
+}
 
 .burger-bar1, .burger-bar2, .burger-bar3 {
     width: 30px;
@@ -545,6 +559,7 @@ a:hover .burger-bar1, a:hover .burger-bar2, a:hover .burger-bar3 {
 }
 
 div.dropdown-text {
+    color: #fff;
     float: left;
     line-height: 55px;
     font-size: 18px;
