@@ -79,8 +79,9 @@ function onClick(itemId, fn) {
 
 /**
  * @param {string} rootPath
+ * @param {string} siteName
  */
-function initDocSite(rootPath) {
+function initDocSite(rootPath, siteName) {
   var versionPopup = document.getElementById('versionPopup');
   var popupLayer = document.getElementById('popupLayer');
 
@@ -109,7 +110,6 @@ function initDocSite(rootPath) {
       versions.unshift('latest');
     }
 
-    //console.log(JSON.stringify(versions, null, ' '))
     var list = document.getElementById('versionList');
     var html = ['<ul>'];
     for (var i = 0, l = versions.length; i < l; ++i) {
@@ -118,7 +118,9 @@ function initDocSite(rootPath) {
         rootPath,
         '/../',
         versions[i],
-        '">Manual for version <strong>',
+        '">',
+        siteName,
+        ' for version <strong>',
         versions[i],
         '</strong></a></li>\n'
       );
@@ -128,4 +130,4 @@ function initDocSite(rootPath) {
   });
 }
 
-initDocSite('');
+initDocSite('..', 'Server SDK documentation');
