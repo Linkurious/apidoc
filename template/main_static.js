@@ -6,9 +6,6 @@ $('#sidenav').find('a').on('click', function(e) {
   e.preventDefault();
   var id = $(this).attr('href');
 
-  $('.menu a.current').removeClass('current');
-  $(this).addClass('current');
-
   if ($(id).length > 0) {
     $('html,body').animate({scrollTop: parseInt($(id).offset().top)}, 400);
   }
