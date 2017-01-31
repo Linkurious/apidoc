@@ -81,7 +81,7 @@ body {
     font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.015em;
     font-size: 16px;
     overflow-x: hidden;
 }
@@ -502,8 +502,6 @@ header > nav > ul > li > a {
 
 header > nav > ul > li > a.active,
 header > nav > ul > li > a:hover {
-    /*color: #EA5565;*/
-    /*background: #141229;*/
     color: #fff;
     background: #514f6a;
 }
