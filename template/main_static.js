@@ -49,7 +49,7 @@ function getVersions(rootPath, cb) {
     }
 
     var ct = oReq.getResponseHeader('Content-Type');
-    if (ct !== CT_JSON) {
+    if ((ct + '').indexOf(CT_JSON) !== 0) {
       return cb(new Error('Unexpected Content-Type ' + ct), oReq.responseText);
     }
 
@@ -130,4 +130,4 @@ function initDocSite(rootPath, siteName) {
   });
 }
 
-initDocSite('..', 'Server SDK documentation');
+initDocSite('..', 'Server SDK doc.');
