@@ -118,6 +118,7 @@ function initDocSite(rootPath, siteName) {
         rootPath,
         '/../',
         versions[i],
+        '/apidoc',
         '">',
         siteName,
         ' for version <strong>',
