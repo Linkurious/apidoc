@@ -230,7 +230,8 @@ require([
 
     // render sidenav
     var fields = {
-        nav: nav
+        nav: nav,
+        version: apiProject.version
     };
     $('#sidenav').append( templateSidenav(fields) );
 
@@ -242,8 +243,10 @@ require([
     $('#project').append( templateProject(apiProject) );
 
     // render apiDoc, header/footer documentation
-    if (apiProject.header)
-        $('#header').append( templateHeader(apiProject.header) );
+    if (apiProject.header) {
+      apiProject.header.version = apiProject.version;
+      $('#header').append(templateHeader(apiProject.header));
+    }
 
     if (apiProject.footer)
         $('#footer').append( templateFooter(apiProject.footer) );

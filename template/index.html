@@ -14,53 +14,72 @@
 <body>
 
 <script id="template-sidenav" type="text/x-handlebars-template">
-<nav id="scrollingNav">
-  <ul class="sidenav nav nav-list">
-  {{#each nav}}
-    {{#if title}}
-      {{#if isHeader}}
-        {{#if isFixed}}
-          <li class="nav-fixed nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+<nav id="scrollingNav" class="menu">
+  <div class="info box-decorator">
+      Welcome to Linkurious' REST API documentation v{{version}}.
+      Use the menu above to access other documentations.
+  </div>
+  <div>
+    <ul class="sidenav nav nav-list">
+    {{#each nav}}
+      {{#if title}}
+        {{#if isHeader}}
+          {{#if isFixed}}
+            <li class="nav-fixed nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+          {{else}}
+            <li class="nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+          {{/if}}
         {{else}}
-          <li class="nav-header" data-group="{{group}}"><a href="#api-{{group}}">{{underscoreToSpace title}}</a></li>
+          <li {{#if hidden}}class="hide" {{/if}}data-group="{{group}}" data-name="{{name}}" data-version="{{version}}">
+            <a href="#api-{{group}}-{{name}}">{{title}}</a>
+          </li>
         {{/if}}
-      {{else}}
-        <li {{#if hidden}}class="hide" {{/if}}data-group="{{group}}" data-name="{{name}}" data-version="{{version}}">
-          <a href="#api-{{group}}-{{name}}">{{title}}</a>
-        </li>
       {{/if}}
-    {{/if}}
-  {{/each}}
-  </ul>
+    {{/each}}
+    </ul>
+  </div>
 </nav>
 </script>
 
 <script id="template-project" type="text/x-handlebars-template">
-  <div class="pull-left">
-    <h1>{{name}}</h1>
-    {{#if description}}<h2>{{{nl2br description}}}</h2>{{/if}}
-  </div>
-  {{#if template.withCompare}}
-  <div class="pull-right">
-    <div class="btn-group">
-      <button id="version" class="btn btn-large dropdown-toggle" data-toggle="dropdown">
-        <strong>{{version}}</strong> <span class="caret"></span>
-      </button>
-      <ul id="versions" class="dropdown-menu open-left">
-          <li><a id="compareAllWithPredecessor" href="#">{{__ "Compare all with predecessor"}}</a></li>
-          <li class="divider"></li>
-          <li class="disabled"><a href="#">{{__ "show up to version:"}}</a></li>
-  {{#each versions}}
-        <li class="version"><a href="#">{{this}}</a></li>
-  {{/each}}
-      </ul>
-    </div>
-  </div>
-  {{/if}}
-  <div class="clearfix"></div>
 </script>
 
 <script id="template-header" type="text/x-handlebars-template">
+
+  <header>
+    <div class="logo"><a href="../../../">
+      Server SDK of <img src="img/linkurious-logo.svg" alt="Linkurious" height="12">
+    </a></div>
+
+    <nav class="content-menu">
+      <ul>
+        <li><a class="active">API Documentation</a></li>
+        <li><a href="../index.html">API Examples</a></li>
+      </ul>
+
+      <div class="doc-dropdown-menu">
+        <button class="dropdown-button">
+          <div class="dropdown-text">Version {{version}}</div>
+          <div class="burger-container">
+            <div class="burger-bar"></div>
+            <div class="burger-bar"></div>
+            <div class="burger-bar"></div>
+          </div>
+        </button>
+        <div class="dropdown-content">
+          <a href="javascript:void(0)" id="versionOpen" class="separator">Other versions of this document</a>
+          <!-- current url is //doc.linkurio.us/server-sdk/vX.Y.Z/apidoc/index.html -->
+          <a href="../../../user-manual/latest">User manual</a>
+          <a href="../../../admin-manual/latest">Administration manual</a>
+          <a href="../../../server-sdk/latest/apidoc"><strong>Server SDK documentation</strong></a>
+          <a href="../../../ogma/latest" class="separator">Visualization SDK (Ogma) documentation</a>
+          <a href="../../../">Documentation home</a>
+          <a href="https://linkurio.us/">Linkurious website</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
   {{#if content}}
     <div id="api-_">{{{content}}}</div>
   {{/if}}
@@ -98,9 +117,7 @@
 
 <script id="template-article" type="text/x-handlebars-template">
   <article id="api-{{article.group}}-{{article.name}}-{{article.version}}" {{#if hidden}}class="hide"{{/if}} data-group="{{article.group}}" data-name="{{article.name}}" data-version="{{article.version}}">
-    <div class="pull-left">
-      <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
-    </div>
+    <h1>{{article.groupTitle}}{{#if article.title}} - {{article.title}}{{/if}}</h1>
     {{#if template.withCompare}}
     <div class="pull-right">
       <div class="btn-group">
@@ -626,16 +643,21 @@
   </tbody>
 </script>
 
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div id="sidenav" class="span2"></div>
-    <div id="content">
-      <div id="project"></div>
-      <div id="header"></div>
-      <div id="sections"></div>
-      <div id="footer"></div>
-      <div id="generator"></div>
-    </div>
+<div id="popupLayer"></div>
+<div id="versionPopup">
+  <div class="head">All versions of this documentation<div id="versionClose">X</div></div>
+  <div id="versionList"></div>
+</div>
+
+
+<div class="main">
+  <div id="sidenav" class="menu"></div>
+  <div class="content box-decorator">
+    <div id="project"></div>
+    <div id="header"></div>
+    <div id="sections"></div>
+    <div id="footer"></div>
+    <div id="generator"></div>
   </div>
 </div>
 
