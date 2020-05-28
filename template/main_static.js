@@ -119,22 +119,24 @@ function initDocSite(rootPath, siteName) {
       console.log('XHR error: ' + (err.message ? err.message : JSON.stringify(err)));
       versions = ['latest'];
     } else {
-      versions.unshift('latest');
+      versions.push('latest');
     }
 
     var list = document.getElementById('versionList');
     var html = ['<ul>'];
-    for (var i = 0, l = versions.length; i < l; ++i) {
+    for (var i = versions.length - 1; i >= 0; --i) {
       html.push(
         '<li><a class="versionLink" href="',
         rootPath,
         '/../',
         versions[i],
-        '/apidoc',
-        '">',
-        siteName,
-        ' for version <strong>',
-        versions[i],
+        '">Manual for version <strong>',
+        /*
+         * For now, the doc server uses "latest" but we want to display "latest stable" (see
+         * https://github.com/Linkurious/squanchy-server).
+         * For that reason, so we display "latest stable" in the list but the link goes to "latest".
+         */
+        versions[i] === 'latest' ? 'latest stable' : versions[i],
         '</strong></a></li>\n'
       );
     }
