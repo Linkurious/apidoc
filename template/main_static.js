@@ -130,7 +130,10 @@ function initDocSite(rootPath, siteName) {
         rootPath,
         '/../',
         versions[i],
-        '">Manual for version <strong>',
+        '/apidoc',
+        '">',
+        siteName,
+        ' for version <strong>',
         /*
          * For now, the doc server uses "latest" but we want to display "latest stable" (see
          * https://github.com/Linkurious/squanchy-server).
