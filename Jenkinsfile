@@ -2,7 +2,7 @@
 
 nodeJob {
   // General
-  projectName = "apidoc"
+  projectName = "linkurious/apidoc"
   podTemplateNames = ['jnlp-agent-node']
 
   runUnitTests = false
