@@ -1,6 +1,6 @@
 {
   "name": "@linkurious/apidoc",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "description": "RESTful web API Documentation Generator",
   "author": "Peter Rottmann <rottmann@inveris.de>",
   "license": "MIT",
@@ -19,6 +19,9 @@
     "test": "npm run jshint && mocha test/",
     "jshint": "jshint lib/ test/",
     "build-example": "bin/apidoc -i example/ -o tmp/",
+    "bump:patch": "bump2version patch && npm version --no-git-tag-version patch",
+    "bump:minor": "bump2version minor && npm version --no-git-tag-version minor",
+    "bump:major": "bump2version major && npm version --no-git-tag-version major",
     "check-updates": "npm-check-updates"
   },
   "keywords": [
