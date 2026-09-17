@@ -52,6 +52,8 @@ p > code {
     box-shadow: 1px 1px 2px 0 #afb3b4;
     border-radius: 3px;
     padding: 1px 3px;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 td.code {

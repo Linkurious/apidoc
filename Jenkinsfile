@@ -11,6 +11,7 @@ nodeJob {
 
   createGitTag = true
   gitTagPrefix = 'v'
+  githubRelease = true
   runBookeeping = true
 }
 
