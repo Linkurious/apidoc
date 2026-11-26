@@ -11,6 +11,8 @@
     --mono: "Roboto Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 *, *::before, *::after { box-sizing: border-box; }
+/* Bootstrap 2 sizes form controls as content-box (20px + padding + border); keep that for the sample request form */
+input, textarea, select, .add-on, .uneditable-input { box-sizing: content-box; }
 html { scroll-padding-top: calc(var(--header-h) + var(--sSpacingL)); }
 body { margin: 0; overflow-x: hidden; color: var(--sColorGrayBlack); background: var(--sColorGrayLighter); font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
 @media (max-width: 980px) { body { font-size: 15px; } }
@@ -137,7 +139,13 @@ ul.nav-tabs > li.active > a, ul.nav-tabs > li.active > a:hover { color: #fff; ba
     .logo { padding: 0 var(--sSpacingXs) 0 var(--sSpacingS); } .logo img { display: none; } .content-menu { min-width: 0; }
     .logo { font-size: 11px; line-height: 1.2; } .dropdown-button { padding: 0 var(--sSpacingS); } div.dropdown-text { font-size: 12px; } .doc-dropdown-menu { margin-right: var(--sSpacingS); }
 }
-@media print { header, .menu { display: none; } .main > .content { margin: 0; border: 0; } }
+@media print {
+  /* bootstrap.min.css and prettify.css are screen-only, so dropdowns and code colors need print rules here */
+  header, .menu, .version, .versions, .dropdown-menu, form.form-horizontal { display: none !important; }
+  .main > .content { margin: 0; border: 0; box-shadow: none; }
+  pre { color: #000; background: #fff; border: 1px solid var(--sColorGrayLight); }
+  pre.language-html::before { color: #000; background: #fff !important; border: 1px solid var(--sColorGrayLight); border-bottom: 0; }
+}
 pre.language-html > code { overflow-x: auto; }
 
 /* ---------- Version popup ("Other versions") ---------- */

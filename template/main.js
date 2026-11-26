@@ -322,13 +322,18 @@ require([
     });
     $('#sections').append( content );
 
-    // Bootstrap Scrollspy
-    $(this).scrollspy({ target: '#scrollingNav', offset: 18 });
+    // Space kept above a section when scrolling to it: the fixed header (only rendered when the project has one) plus a gap
+    function headerOffset() {
+        return ($('header').outerHeight() || 0) + 20;
+    }
 
     // Scroll position that keeps a section clear of the fixed header
     function scrollTopFor(id) {
-        return parseInt($(id).offset().top - $('header').outerHeight() - 20);
+        return parseInt($(id).offset().top - headerOffset());
     }
+
+    // Bootstrap Scrollspy, with the same offset as the anchor scroll (+2px for rounding) so the clicked entry is the active one
+    $(this).scrollspy({ target: '#scrollingNav', offset: headerOffset() + 2 });
 
     // Content-Scroll on Navigation click.
     $('.sidenav').find('a').on('click', function(e) {
@@ -477,7 +482,7 @@ require([
 
         if (window.location.hash) {
             var id = window.location.hash;
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) - 18 }, 0);
+            $('html,body').animate({ scrollTop: scrollTopFor(id) }, 0);
         }
     }
 
