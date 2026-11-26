@@ -50,8 +50,8 @@ require([
     'pathToRegexp'
 ], function($, _, locale, Handlebars, apiProject, apiData, prettyPrint, sampleRequest, semver, WebFont) {
 
-    // load google web fonts
-    loadGoogleFontCss();
+    // fonts are self-hosted in css/ (no Google Fonts request); refresh the scrollspy once they are ready
+    waitForFonts();
 
     var api = apiData.api;
 
@@ -322,15 +322,25 @@ require([
     });
     $('#sections').append( content );
 
-    // Bootstrap Scrollspy
-    $(this).scrollspy({ target: '#scrollingNav', offset: 18 });
+    // Space kept above a section when scrolling to it: the fixed header (only rendered when the project has one) plus a gap
+    function headerOffset() {
+        return ($('header').outerHeight() || 0) + 20;
+    }
+
+    // Scroll position that keeps a section clear of the fixed header
+    function scrollTopFor(id) {
+        return parseInt($(id).offset().top - headerOffset());
+    }
+
+    // Bootstrap Scrollspy, with the same offset as the anchor scroll (+2px for rounding) so the clicked entry is the active one
+    $(this).scrollspy({ target: '#scrollingNav', offset: headerOffset() + 2 });
 
     // Content-Scroll on Navigation click.
     $('.sidenav').find('a').on('click', function(e) {
         e.preventDefault();
         var id = $(this).attr('href');
         if ($(id).length > 0)
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) }, 400);
+            $('html,body').animate({ scrollTop: scrollTopFor(id) }, 400);
         window.location.hash = $(this).attr('href');
     });
 
@@ -338,7 +348,7 @@ require([
     if(window.location.hash) {
         var id = window.location.hash;
         if ($(id).length > 0)
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) }, 0);
+            $('html,body').animate({ scrollTop: scrollTopFor(id) }, 0);
     }
 
     /**
@@ -472,7 +482,7 @@ require([
 
         if (window.location.hash) {
             var id = window.location.hash;
-            $('html,body').animate({ scrollTop: parseInt($(id).offset().top) - 18 }, 0);
+            $('html,body').animate({ scrollTop: scrollTopFor(id) }, 0);
         }
     }
 
@@ -701,18 +711,14 @@ require([
     }
 
     /**
-     * Load google fonts.
+     * Update the scrollspy once the self-hosted fonts are loaded (text metrics change the section offsets).
      */
-    function loadGoogleFontCss() {
-        WebFont.load({
-            active: function() {
-                // Update scrollspy
-                $(window).scrollspy('refresh')
-            },
-            google: {
-                families: ['Source Code Pro', 'Source Sans Pro:n4,n6,n7']
-            }
-        });
+    function waitForFonts() {
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function() {
+                $(window).scrollspy('refresh');
+            });
+        }
     }
 
     /**
